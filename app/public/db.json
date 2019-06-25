@@ -1,0 +1,10 @@
+[{
+    "from": "Ivanovo",
+    "to": "Palekh",
+    "times": ["13:00"]
+}, {
+    "from": "Palekh",
+    "to": "Ivanovo",
+    "times": ["13:40"]
+}]
+
