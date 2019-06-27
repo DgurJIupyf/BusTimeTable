@@ -34,7 +34,7 @@
 
 #from {
   float: left;
-  margin-left: 10px;
+  margin-left: 10px; 
   margin-right: 10px;
 }
 
@@ -74,4 +74,14 @@
 }
 .select-css option {
   font-weight:normal;
+}
+
+.Strelka {
+  padding-top: 6px ;
+}
+
+.ClockSize {
+  font-size: 30px;
+  padding-bottom: 15px;
+  padding-top: 15px 
 }

@@ -96,7 +96,7 @@ function TimeSecond(currentDate, interval) {
 
 export function Clock2() {
   const date = TimeSecond(clock(), 1000)
-  return (<label> {date} </label>)
+  return (<label className="ClockSize"> {date} </label>)
 }
 
 //---------------------------------------------------------------------------------------------------------------
@@ -124,14 +124,18 @@ export function GetDateToBus (RealT, TToBus) {
     return [TToBus[NearTimeToBus],TToBus[0],TToBus[1]]
 }
 
+export function DivCenter () {
+  console.log(ComboBox())
+  return (<div> {ComboBox()}<label id='from' className="Strelka"> -> </label> {ComboBox2()} </div>)
+}
+
 export function SuuuuuperTest() {
   const bus = TimeToBus2.filter(item => item.from === "Иваново" && item.to === "Палех")[0]
   
-  return (<div>  {bus.from} -> {bus.to} <br></br>
+  return (<div>
     1. Ближайший рейс через {TimeCalc(RealTime(), bus.times[0])} минут в {bus.times[0]} <br></br>
     2. Рейс через {TimeCalc(RealTime(), bus.times[1])} минут в {bus.times[1]}<br></br>
     3. Рейс через {TimeCalc(RealTime(), bus.times[2])} минут в {bus.times[2]}<br></br>
-  {ComboBox()}<labe id='from'> - </labe> {ComboBox2()}
   </div>
   )
 }
