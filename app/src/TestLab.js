@@ -1,10 +1,11 @@
 import React from 'react';
+import './App.css';
 
 const TimeToBus2 = [
   {
   "from": "Иваново",
   "to": "Палех",
-  "times": ["13:00", "00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
+  "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
   "02:59", "03:00", "03:01", "03:59"]
   }, 
   {
@@ -94,7 +95,7 @@ function TimeSecond(currentDate, interval) {
 }*/
 
 export function Clock2() {
-    const date = TimeSecond(clock(), 1000)
+  const date = TimeSecond(clock(), 1000)
   return (<label> {date} </label>)
 }
 
@@ -130,5 +131,29 @@ export function SuuuuuperTest() {
     1. Ближайший рейс через {TimeCalc(RealTime(), bus.times[0])} минут в {bus.times[0]} <br></br>
     2. Рейс через {TimeCalc(RealTime(), bus.times[1])} минут в {bus.times[1]}<br></br>
     3. Рейс через {TimeCalc(RealTime(), bus.times[2])} минут в {bus.times[2]}<br></br>
-  </div>)
+  {ComboBox()}<labe id='from'> - </labe> {ComboBox2()}
+  </div>
+  )
+}
+
+export function ComboBox() {
+  return (
+    <select id='from' className='select-css'>
+      <option value='1'> Иваново </option>
+      <option value='2'> Палех </option>
+      <option value='3'> Шуя </option>
+      <option value='4'> Владимир </option>
+    </select>   
+  )
+}
+
+export function ComboBox2() {
+  return (
+    <select id='from' className='select-css'>
+      <option value='1'> Иваново </option>
+      <option value='2'> Палех </option>
+      <option value='3'> Шуя </option>
+      <option value='4'> Владимир </option>
+    </select>   
+  )
 }
