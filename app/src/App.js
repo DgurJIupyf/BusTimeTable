@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Clock2, SuuuuuperTest, ComboBox, ComboBox2, DivCenter} from './TestLab.js'
+import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js'
 
 function App() {
   return (
