@@ -6,7 +6,7 @@ const TimeToBus2 = [
   "from": "Иваново",
   "to": "Палех",
   "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
-  "02:59", "03:00", "03:01", "03:59", "17:30", "19:00", "19:30", "19:50"]
+  "02:59", "03:00", "03:01", "03:59", "17:30", "17:50", "18:20", "19:00", "19:30", "19:50"]
   }, 
   {
     "from": "Палех",
@@ -50,6 +50,11 @@ function TimeCalc (Time1,Time2) {
       var CalcRealTime = parseIntArray(Time1.split(":"))
       var CalcTimeToBus = parseIntArray(Time2.split(":"))
       DiffTime = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
+      if ((CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]>0)
+        DiffTime = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
+      else 
+        DiffTime = 1440 - CalcRealTime[0]*60 - CalcRealTime[1] + CalcTimeToBus[0]*60 + CalcTimeToBus[1]
+
     }
     return DiffTime
 }
@@ -121,12 +126,15 @@ export function DivCenter () {
   return (<div> {ComboBox()}<label id='from'> -> </label> {ComboBox2()} </div>)
 }
 
+var Grom 
+
 export function ComboBox() {
   return (
     <select id='from' className='select-css' onChange={function OnSelectionChange (select) {
-        //var selectedOption = select.options[select.selectedIndex];
         alert ("The selected option is ");
-        console.log(select)
+        Grom = select.target.selectedIndex
+        console.log(select.target.selectedIndex)
+        return Grom
     }
     }>
       <option value='1'> Иваново </option>
@@ -135,6 +143,8 @@ export function ComboBox() {
     </select>   
   )
 }
+
+console.log(Grom)
 
 export function ComboBox2() {
   return (
@@ -152,7 +162,7 @@ export function SuuuuuperTest() {
   //const text1 = ComboBox().options[IndexValue1].text
   //const text2 = ComboBox2().options[IndexValue2].text
   //console.log(IndexValue1/*, IndexValue2, text1, text2*/)
-  const bus = TimeToBus2.filter(item => item.from === 'Палех' && item.to === 'Иваново')[0]
+  const bus = TimeToBus2.filter(item => item.from === 'Иваново' && item.to === 'Палех')[0]
   const filtertime = GetDateToBus (RealTime(), bus.times)
 
   return (<div>
