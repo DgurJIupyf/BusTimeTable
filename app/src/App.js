@@ -14,7 +14,7 @@ function App() {
         
       </DivCenter>
       {firstCity}
-      <SuuuuuperTest id='a2'></SuuuuuperTest>
+      <SuuuuuperTest id='a2' from={firstCity}></SuuuuuperTest>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

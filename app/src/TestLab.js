@@ -173,14 +173,10 @@ export function ComboBox2() {
   )
 }
 
-export function SuuuuuperTest() {  
-  //const IndexValue1 = ComboBox2("Иваново")
-  //const IndexValue2 = ComboBox2().options.selectedIndex
-  //const text1 = ComboBox().options[IndexValue1].text
-  //const text2 = ComboBox2().options[IndexValue2].text
-  //console.log(IndexValue1/*, IndexValue2, text1, text2*/)
+export function SuuuuuperTest({ from }) {
+  console.log(from);
   const bus = TimeToBus2.filter(item => item.from === 'Иваново' && item.to === 'Палех')[0]
-  const filtertime = GetDateToBus (RealTime(), bus.times)
+  const filtertime = GetDateToBus(RealTime(), bus.times)
 
   return (<div>
     1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} минут в {filtertime[0]} <br></br>
