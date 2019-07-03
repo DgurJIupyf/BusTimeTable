@@ -136,10 +136,6 @@ export function DivCenter ({ onFirstCityChange }) {
     </div>)
 }
 
-function getFirstCity ({ onFirstCityChange }) {
-  return
-}
-
 export function ComboBox({ onChange }) {
   return (
     <select id='from' className='select-css' onChange={onChange}>
@@ -149,17 +145,6 @@ export function ComboBox({ onChange }) {
     </select>
   )
 } 
-
-
-/*export function ComboBox() {
-  return (
-    <select id='from' className='select-css'>
-      <option value='1'> Иваново </option>
-      <option value='2'> Палех </option>
-      <option value='3'> Шуя </option>
-    </select>   
-  )
-}*/
 
 export function ComboBox2() {
   return (
@@ -171,13 +156,14 @@ export function ComboBox2() {
   )
 }
 
-export function SuuuuuperTest(from) {  
+export function TestKy ({port}) {
+  return (<div>
+    afasffgasgsagas {port}
+  </div>)
+}
+
+export function SuuuuuperTest({from}) {  
   console.log(from);
-  //const IndexValue1 = ComboBox2("Иваново")
-  //const IndexValue2 = ComboBox2().options.selectedIndex
-  //const text1 = ComboBox().options[IndexValue1].text
-  //const text2 = ComboBox2().options[IndexValue2].text
-  //console.log(IndexValue1/*, IndexValue2, text1, text2*/)
   const bus = TimeToBus2.filter(item => item.from === 'Иваново' && item.to === 'Палех')[0]
   const filtertime = GetDateToBus (RealTime(), bus.times)
 
