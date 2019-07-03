@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import App from './App'
 
 const TimeToBus2 = [
   {
@@ -135,6 +136,10 @@ export function DivCenter ({ onFirstCityChange }) {
     </div>)
 }
 
+function getFirstCity ({ onFirstCityChange }) {
+  return
+}
+
 export function ComboBox({ onChange }) {
   return (
     <select id='from' className='select-css' onChange={onChange}>
@@ -144,18 +149,11 @@ export function ComboBox({ onChange }) {
     </select>
   )
 } 
+
+
 /*export function ComboBox() {
   return (
-    <select id='from' className='select-css' onChange={function OnSelectionChange (select) {
-        alert ("The selected option is ");
-        Grom = select.target.selectedIndex
-        ReactDOM.render (
-          <DivCenter id='a1'></DivCenter>, document.getElementById('a1')
-        )
-        console.log(select.target.selectedIndex)
-        return Grom
-    }
-    }>
+    <select id='from' className='select-css'>
       <option value='1'> Иваново </option>
       <option value='2'> Палех </option>
       <option value='3'> Шуя </option>
@@ -173,7 +171,8 @@ export function ComboBox2() {
   )
 }
 
-export function SuuuuuperTest() {  
+export function SuuuuuperTest(from) {  
+  console.log(from);
   //const IndexValue1 = ComboBox2("Иваново")
   //const IndexValue2 = ComboBox2().options.selectedIndex
   //const text1 = ComboBox().options[IndexValue1].text

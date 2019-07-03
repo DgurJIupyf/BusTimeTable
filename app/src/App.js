@@ -3,15 +3,14 @@ import logo from './logo.svg';
 import './App.css';
 import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js';
 
-
-function App() {
-  const [firstCity, setFirstCity] = useState();
+export function App() {
+  const [firstCity, setFirstCity] = useState('Ivanovo');
+  
   return (
     <div className="App">
       <header className="App-header">
       <Clock2></Clock2>
-      <DivCenter onFirstCityChange={(event) => setFirstCity(event.target.value)}>
-        
+      <DivCenter id='a2' name1={firstCity} onFirstCityChange={(event) => setFirstCity(event.target.value)}>
       </DivCenter>
       {firstCity}
       <SuuuuuperTest id='a2'></SuuuuuperTest>
