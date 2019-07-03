@@ -1,15 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js'
+import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js';
+
 
 function App() {
+  const [firstCity, setFirstCity] = useState();
   return (
     <div className="App">
       <header className="App-header">
       <Clock2></Clock2>
-      <DivCenter></DivCenter>
-      <SuuuuuperTest></SuuuuuperTest>
+      <DivCenter onFirstCityChange={(event) => setFirstCity(event.target.value)}>
+        
+      </DivCenter>
+      {firstCity}
+      <SuuuuuperTest id='a2'></SuuuuuperTest>
         <img src={logo} className="App-logo" alt="logo" />
         <p>
           Edit <code>src/App.js</code> and save to reload.

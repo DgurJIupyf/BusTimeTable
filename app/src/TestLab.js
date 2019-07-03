@@ -122,17 +122,36 @@ export function GetDateToBus (RealT, TToBus) {
     return [TToBus[NearTimeToBus],TToBus[0],TToBus[1]]
 }
 
-export function DivCenter () {
+/*export function DivCenter () {
   return (<div> {ComboBox()}<label id='from'> -> </label> {ComboBox2()} </div>)
+}*/
+
+export function DivCenter ({ onFirstCityChange }) {
+  return (
+    <div>
+      <ComboBox onChange={onFirstCityChange}/>
+      <label id='from'> -> </label>
+      {ComboBox2()}
+    </div>)
 }
 
-var Grom 
-
-export function ComboBox() {
+export function ComboBox({ onChange }) {
+  return (
+    <select id='from' className='select-css' onChange={onChange}>
+      <option value='Ivanovo'> Иваново </option>
+      <option value='Palekh'> Палех </option>
+      <option value='Shuya'> Шуя </option> 
+    </select>
+  )
+} 
+/*export function ComboBox() {
   return (
     <select id='from' className='select-css' onChange={function OnSelectionChange (select) {
         alert ("The selected option is ");
         Grom = select.target.selectedIndex
+        ReactDOM.render (
+          <DivCenter id='a1'></DivCenter>, document.getElementById('a1')
+        )
         console.log(select.target.selectedIndex)
         return Grom
     }
@@ -142,9 +161,7 @@ export function ComboBox() {
       <option value='3'> Шуя </option>
     </select>   
   )
-}
-
-console.log(Grom)
+}*/
 
 export function ComboBox2() {
   return (
@@ -157,7 +174,7 @@ export function ComboBox2() {
 }
 
 export function SuuuuuperTest() {  
-  const IndexValue1 = ComboBox2("Иваново")
+  //const IndexValue1 = ComboBox2("Иваново")
   //const IndexValue2 = ComboBox2().options.selectedIndex
   //const text1 = ComboBox().options[IndexValue1].text
   //const text2 = ComboBox2().options[IndexValue2].text
