@@ -1,33 +1,45 @@
 import React, { useState } from 'react';
 import './App.css';
-import App from './App'
 
 const TimeToBus2 = [
   {
-  "from": "Иваново",
-  "to": "Палех",
+  "from": "Ivanovo",
+  "to": "Palekh",
   "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
   "02:59", "03:00", "03:01", "03:59", "17:30", "17:50", "18:20", "19:00", "19:30", "19:50"]
   }, 
   {
-    "from": "Палех",
-    "to": "Иваново",
+    "from": "Palekh",
+    "to": "Ivanovo",
     "times": ["07:59", "08:00", "08:01", "08:59", "09:00", "09:01", "09:59", 
     "10:00", "10:01", "10:59", "11:00", "11:01", "11:59", "12:00", "12:01", "12:59", "13:00", "13:01",
     "13:59", "14:00", "14:01", "14:59", "15:00", "18:00"]
   },
   {
-    "from": "Шуя",
-    "to": "Палех",
+    "from": "Shuya",
+    "to": "Palekh",
     "times": ["13:00", "00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
     "02:59", "03:00", "03:01", "03:59"]
   },
   {
-    "from": "Тверь",
-    "to": "Палех",
+    "from": "Palekh",
+    "to": "Shuya",
     "times": ["13:00", "00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
     "02:59", "03:00", "03:01", "03:59"]
-  }
+  },
+  {
+    "from": "Ivanovo",
+    "to": "Shuya",
+    "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
+    "02:59", "03:00", "03:01", "03:59", "17:30", "17:50", "18:20", "19:00", "19:30", "19:50"]
+    }, 
+    {
+      "from": "Shuya",
+      "to": "Ivanovo",
+      "times": ["07:59", "08:00", "08:01", "08:59", "09:00", "09:01", "09:59", 
+      "10:00", "10:01", "10:59", "11:00", "11:01", "11:59", "12:00", "12:01", "12:59", "13:00", "13:01",
+      "13:59", "14:00", "14:01", "14:59", "15:00", "18:00"]
+    }
 ]
 
 function RealTime(){
@@ -127,12 +139,12 @@ export function GetDateToBus (RealT, TToBus) {
   return (<div> {ComboBox()}<label id='from'> -> </label> {ComboBox2()} </div>)
 }*/
 
-export function DivCenter ({ onFirstCityChange }) {
+export function DivCenter ({ onFirstCityChange, onSecondCityChange }) {
   return (
     <div>
       <ComboBox onChange={onFirstCityChange}/>
       <label id='from'> -> </label>
-      {ComboBox2()}
+      <ComboBox2 onChange={onSecondCityChange}/>
     </div>)
 }
 
@@ -146,31 +158,28 @@ export function ComboBox({ onChange }) {
   )
 } 
 
-export function ComboBox2() {
+export function ComboBox2({ onChange }) {
   return (
-    <select id='to' className='select-css'>
-      <option value='1'> Иваново </option>
-      <option value='2'> Палех </option>
-      <option value='3'> Шуя </option>
+    <select id='to' className='select-css' onChange={onChange}>
+      <option value='Palekh'> Палех </option>
+      <option value='Ivanovo'> Иваново </option>
+      <option value='Shuya'> Шуя </option>
     </select>   
   )
 }
 
-export function TestKy ({port}) {
-  return (<div>
-    afasffgasgsagas {port}
-  </div>)
-}
-
-export function SuuuuuperTest({from}) {  
-  console.log(from);
-  const bus = TimeToBus2.filter(item => item.from === 'Иваново' && item.to === 'Палех')[0]
-  const filtertime = GetDateToBus (RealTime(), bus.times)
-
-  return (<div>
-    1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} минут в {filtertime[0]} <br></br>
-    2. Рейс через {TimeCalc(RealTime(), filtertime[1])} минут в {filtertime[1]}<br></br>
-    3. Рейс через {TimeCalc(RealTime(), filtertime[2])} минут в {filtertime[2]}<br></br>
-  </div>
-  )
+export function SuuuuuperTest({from,to}) {  
+  console.log(from, to);
+  if (from === to)
+    return (<div>
+      Выберите правильное направление
+    </div>)
+  else
+    {const bus = TimeToBus2.filter(item => item.from === from && item.to === to)[0]
+    const filtertime = GetDateToBus (RealTime(), bus.times)
+    return (<div>
+     1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} минут в {filtertime[0]} <br></br>
+     2. Рейс через {TimeCalc(RealTime(), filtertime[1])} минут в {filtertime[1]}<br></br>
+     3. Рейс через {TimeCalc(RealTime(), filtertime[2])} минут в {filtertime[2]}<br></br>
+    </div>)}
 }
