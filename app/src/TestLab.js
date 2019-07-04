@@ -6,7 +6,7 @@ const TimeToBus2 = [
   "from": "Ivanovo",
   "to": "Palekh",
   "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
-  "02:59", "03:00", "03:01", "03:59", "17:30", "19:30", "21:20", "19:00", "19:30", "19:50","22:00","23:00","23:59"]
+  "02:59", "03:00", "03:01", "03:59", "17:30", "19:00", "19:30", "19:50","22:24","23:00","23:59"]
   }, 
   {
     "from": "Palekh",
@@ -67,7 +67,18 @@ function EndHours (NumHours) {
         return NumHours + " часа "
       else
         return NumHours + " часов "
-  //Ничего не понимаю!
+}
+
+function EndMinuts (NumMinuts) {
+  const zero = [1,21,31,41,51]
+  const a = [2,3,4,22,23,24,32,33,34,42,43,44,52,53,54]
+  if (zero.includes(NumMinuts))
+    return NumMinuts + " минута "
+  else
+    if (a.includes(NumMinuts))
+      return NumMinuts + " минуты "
+    else
+      return NumMinuts + " минут "
 }
 
 function TimeCalc (Time1,Time2) {
@@ -79,17 +90,20 @@ function TimeCalc (Time1,Time2) {
       var CalcRealTime = parseIntArray(Time1.split(":"))
       var CalcTimeToBus = parseIntArray(Time2.split(":"))
       DiffTime = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
-      if ((CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]>0) 
+      if (DiffTime>0) 
       {
         const Summ = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
         const Housrs = Math.floor( Summ / 60 );
         const Minutes = Summ % 60
-        DiffTime = EndHours(Housrs) + Minutes + " минут "
+        DiffTime = EndHours(Housrs) + EndMinuts(Minutes)
         console.log(EndHours(Housrs), Housrs, Minutes)
       }
       else
-        DiffTime = 1440 - CalcRealTime[0]*60 - CalcRealTime[1] + CalcTimeToBus[0]*60 + CalcTimeToBus[1]
-
+        const Summ = 1440 - CalcRealTime[0]*60 - CalcRealTime[1] + CalcTimeToBus[0]*60 + CalcTimeToBus[1]
+        const Housrs = Math.floor( Summ / 60 );
+        const Minutes = Summ % 60
+        DiffTime = EndHours(Housrs) + EndMinuts(Minutes)
+        console.log(EndHours(Housrs), Housrs, Minutes)
     }
     return DiffTime
 }
