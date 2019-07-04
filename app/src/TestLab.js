@@ -98,12 +98,13 @@ function TimeCalc (Time1,Time2) {
         DiffTime = EndHours(Housrs) + EndMinuts(Minutes)
         console.log(EndHours(Housrs), Housrs, Minutes)
       }
-      else
+      else {
         const Summ = 1440 - CalcRealTime[0]*60 - CalcRealTime[1] + CalcTimeToBus[0]*60 + CalcTimeToBus[1]
         const Housrs = Math.floor( Summ / 60 );
         const Minutes = Summ % 60
         DiffTime = EndHours(Housrs) + EndMinuts(Minutes)
         console.log(EndHours(Housrs), Housrs, Minutes)
+      }
     }
     return DiffTime
 }
