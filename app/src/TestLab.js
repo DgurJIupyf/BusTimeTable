@@ -67,7 +67,7 @@ function EndHours (NumHours) {
         return NumHours + " часа "
       else
         return NumHours + " часов "
-  
+  //Ничего не понимаю!
 }
 
 function TimeCalc (Time1,Time2) {
