@@ -6,7 +6,7 @@ const TimeToBus2 = [
   "from": "Ivanovo",
   "to": "Palekh",
   "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
-  "02:59", "03:00", "03:01", "03:59", "17:30", "19:30", "21:20", "19:00", "19:30", "19:50"]
+  "02:59", "03:00", "03:01", "03:59", "17:30", "19:30", "21:20", "19:00", "19:30", "19:50","22:00","23:00","23:59"]
   }, 
   {
     "from": "Palekh",
@@ -58,12 +58,12 @@ function EndHours (NumHours) {
   const zero = [1,21]
   const a = [2,3,4,22,23,24]
   if (NumHours === 0) 
-    return
+    return ""
   else
-    if (zero.map(item => NumHours === item))
+    if (zero.includes(NumHours))
       return NumHours + " час "
     else
-      if (NumHours === 2&3&4&22&23&24 )
+      if (a.includes(NumHours))
         return NumHours + " часа "
       else
         return NumHours + " часов "
