@@ -6,7 +6,7 @@ const TimeToBus2 = [
   "from": "Ivanovo",
   "to": "Palekh",
   "times": ["00:00", "00:01", "00:59", "01:00", "01:01", "01:59", "02:00", "02:01",
-  "02:59", "03:00", "03:01", "03:59", "17:30", "17:50", "18:20", "19:00", "19:30", "19:50"]
+  "02:59", "03:00", "03:01", "03:59", "17:30", "19:30", "21:20", "19:00", "19:30", "19:50"]
   }, 
   {
     "from": "Palekh",
@@ -54,6 +54,22 @@ function parseIntArray(ArrayStr) {
   return ArrayInt
 }
 
+function EndHours (NumHours) {
+  const zero = [1,21]
+  const a = [2,3,4,22,23,24]
+  if (NumHours === 0) 
+    return
+  else
+    if (zero.map(item => NumHours === item))
+      return NumHours + " час "
+    else
+      if (NumHours === 2&3&4&22&23&24 )
+        return NumHours + " часа "
+      else
+        return NumHours + " часов "
+  
+}
+
 function TimeCalc (Time1,Time2) {
     var DiffTime
     if (Time1 === undefined || Time2 === undefined) {
@@ -63,9 +79,15 @@ function TimeCalc (Time1,Time2) {
       var CalcRealTime = parseIntArray(Time1.split(":"))
       var CalcTimeToBus = parseIntArray(Time2.split(":"))
       DiffTime = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
-      if ((CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]>0)
-        DiffTime = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
-      else 
+      if ((CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]>0) 
+      {
+        const Summ = (CalcTimeToBus[0] - CalcRealTime[0])*60 + CalcTimeToBus[1] - CalcRealTime[1]
+        const Housrs = Math.floor( Summ / 60 );
+        const Minutes = Summ % 60
+        DiffTime = EndHours(Housrs) + Minutes + " минут "
+        console.log(EndHours(Housrs), Housrs, Minutes)
+      }
+      else
         DiffTime = 1440 - CalcRealTime[0]*60 - CalcRealTime[1] + CalcTimeToBus[0]*60 + CalcTimeToBus[1]
 
     }
@@ -178,8 +200,8 @@ export function SuuuuuperTest({from,to}) {
     {const bus = TimeToBus2.filter(item => item.from === from && item.to === to)[0]
     const filtertime = GetDateToBus (RealTime(), bus.times)
     return (<div>
-     1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} минут в {filtertime[0]} <br></br>
-     2. Рейс через {TimeCalc(RealTime(), filtertime[1])} минут в {filtertime[1]}<br></br>
-     3. Рейс через {TimeCalc(RealTime(), filtertime[2])} минут в {filtertime[2]}<br></br>
+     1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} в {filtertime[0]} <br></br>
+     2. Рейс через {TimeCalc(RealTime(), filtertime[1])} в {filtertime[1]}<br></br>
+     3. Рейс через {TimeCalc(RealTime(), filtertime[2])} в {filtertime[2]}<br></br>
     </div>)}
 }
