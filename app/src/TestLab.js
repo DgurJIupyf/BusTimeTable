@@ -172,36 +172,22 @@ export function GetDateToBus (RealT, TToBus) {
     return [TToBus[NearTimeToBus],TToBus[0],TToBus[1]]
 }
 
-/*export function DivCenter () {
-  return (<div> {ComboBox()}<label id='from'> -> </label> {ComboBox2()} </div>)
-}*/
-
-export function DivCenter ({ onFirstCityChange, onSecondCityChange }) {
+export function DivCenter ({ onFirstCityChange, onSecondCityChange, from, to }) {
   return (
     <div>
-      <ComboBox onChange={onFirstCityChange}/>
-      <label id='from'> -> </label>
-      <ComboBox2 onChange={onSecondCityChange}/>
+      <ComboBox onChange={onFirstCityChange} value={from} />
+      <span> -> </span>
+      <ComboBox onChange={onSecondCityChange} value={to} />
     </div>)
 }
 
-export function ComboBox({ onChange }) {
+export function ComboBox({ onChange, value }) {
   return (
-    <select id='from' className='select-css' onChange={onChange}>
+    <select className='select-css' onChange={onChange} value={value}>
       <option value='Ivanovo'> Иваново </option>
       <option value='Palekh'> Палех </option>
       <option value='Shuya'> Шуя </option> 
     </select>
-  )
-} 
-
-export function ComboBox2({ onChange }) {
-  return (
-    <select id='to' className='select-css' onChange={onChange}>
-      <option value='Palekh'> Палех </option>
-      <option value='Ivanovo'> Иваново </option>
-      <option value='Shuya'> Шуя </option>
-    </select>   
   )
 }
 
