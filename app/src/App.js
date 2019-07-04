@@ -11,7 +11,12 @@ export function App() {
     <div className="App">
       <header className="App-header">
       <Clock2 />
-      <DivCenter onFirstCityChange={(event) => setFirstCity(event.target.value)} onSecondCityChange={(event) => setSecondCity(event.target.value)} />
+      <DivCenter
+        from={firstCity}
+        to={secondCity} 
+        onFirstCityChange={(event) => setFirstCity(event.target.value)}
+        onSecondCityChange={(event) => setSecondCity(event.target.value)}
+      />
       <SuuuuuperTest to={secondCity} from={firstCity} />
       <img src={logo} className="App-logo" alt="logo" />
       </header>

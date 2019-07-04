@@ -44,7 +44,6 @@
 }
 
 .select-css {
-  display: block;
   font-size: calc(10px + 2vmin);
   color: white;
   line-height: 1;
