@@ -9,11 +9,15 @@ export function App() {
   const [Json, setJson] = useState();
 
   fetch('/db.json')
-    .then(res => res.json())
-    .then(data => {
-      setJson(data);
-    });
+      .then(res => res.json())
+      .then(data => {
+        setTimeout(() => setJson(data), 2000);
+      });
   console.log(Json)
+
+  if (!Json) {
+    return 'ЗАЛУПА'; 
+  }
 
   return (
     <div className="App">
