@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 
-const TimeToBus2 = [
+/*const TimeToBus2 = [
   {
   "from": "Ivanovo",
   "to": "Palekh",
@@ -40,7 +40,7 @@ const TimeToBus2 = [
       "10:00", "10:01", "10:59", "11:00", "11:01", "11:59", "12:00", "12:01", "12:59", "13:00", "13:01",
       "13:59", "14:00", "14:01", "14:59", "15:00", "18:00"]
     }
-]
+]*/
 
 function RealTime(){
     var date = new Date();
@@ -196,14 +196,14 @@ export function ComboBox({ onChange, value }) {
   return (<label className="ClockSize"> {divboard} </label>)
 }*/
 
-export function SuuuuuperTest({from,to}) {  
-  console.log(from, to);
+export function SuuuuuperTest({JsonDataBase, from, to}) {  
+  console.log(JsonDataBase, from, to);
   if (from === to)
     return (<div>
       Выберите правильное направление
     </div>)
   else
-    {const bus = TimeToBus2.filter(item => item.from === from && item.to === to)[0]
+    {const bus = JsonDataBase.filter(item => item.from === from && item.to === to)[0]
     const filtertime = GetDateToBus (RealTime(), bus.times)
     return (<div>
      1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} в {filtertime[0]} <br></br>
