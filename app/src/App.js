@@ -11,9 +11,17 @@ export function App() {
   fetch('/db.json')
     .then(res => res.json())
     .then(data => {
-      setJson(data);
+      setTimeout(() => setJson(data), 2000)
     });
   console.log(Json)
+
+  if (!Json) {
+    return (<div className="App-header">
+      Пожалуйста подождите, идёт загрузка!
+      <img src={logo} className="App-logo" alt="logo" />
+    </div>); 
+  }
+  
 
   return (
     <div className="App">
