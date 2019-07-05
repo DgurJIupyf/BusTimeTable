@@ -127,7 +127,7 @@ function clock(){
 }
 
 function TimeSecond(currentDate, interval) {
-    const [date, setDate] = React.useState(currentDate);  
+    const [date, setDate] = React.useState(currentDate());  
     React.useEffect(() => {
       var timerID = setInterval(() => {
 		  tick()
@@ -135,13 +135,13 @@ function TimeSecond(currentDate, interval) {
 		}, interval );
      });    
     function tick() {
-      setDate(clock());
+      setDate(currentDate());
     }  
     return date;
 }
 
 export function Clock2() {
-  const date = TimeSecond(clock(), 1000)
+  const date = TimeSecond(clock, 1000)
   return (<label className="ClockSize"> {date} </label>)
 }
 
@@ -190,6 +190,11 @@ export function ComboBox({ onChange, value }) {
     </select>
   )
 }
+
+/*export function SuuuuuperTest2() {
+  const divboard = TimeSecond(SuuuuuperTest(), 60000)
+  return (<label className="ClockSize"> {divboard} </label>)
+}*/
 
 export function SuuuuuperTest({from,to}) {  
   console.log(from, to);
