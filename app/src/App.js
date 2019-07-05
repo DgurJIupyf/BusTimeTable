@@ -6,6 +6,12 @@ import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js';
 export function App() {
   const [firstCity, setFirstCity] = useState('Ivanovo');
   const [secondCity, setSecondCity] = useState('Palekh');
+
+  fetch('/db.json')
+    .then(res => res.json())
+    .then(data => {
+      console.log(data);
+    });
   
   return (
     <div className="App">
