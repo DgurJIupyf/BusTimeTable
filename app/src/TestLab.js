@@ -73,7 +73,7 @@ function EndMinuts (NumMinuts) {
   const zero = [1,21,31,41,51]
   const a = [2,3,4,22,23,24,32,33,34,42,43,44,52,53,54]
   if (zero.includes(NumMinuts))
-    return NumMinuts + " минута "
+    return NumMinuts + " минуту "
   else
     if (a.includes(NumMinuts))
       return NumMinuts + " минуты "
