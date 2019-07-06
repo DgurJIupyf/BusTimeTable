@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Clock2, SuuuuuperTest, DivCenter } from "./TestLab.js";
+import { Clock2, BusTable, DivCenter } from "./TestLab.js";
 
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
@@ -55,7 +55,7 @@ export function App() {
             if (newValueCity === firstCity) setFirstCity(secondCity);
           }}
         />
-        <SuuuuuperTest JsonDataBase={Json} to={secondCity} from={firstCity} />
+        <BusTable busTimes={Json} to={secondCity} from={firstCity} />
         <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>

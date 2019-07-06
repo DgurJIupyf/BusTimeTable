@@ -39,29 +39,18 @@ function TimeCalc(Time1, Time2) {
 
   if (Time1 === undefined || Time2 === undefined) DiffTime = "Error";
   else {
-    var CalcRealTime = parseIntArray(Time1.split(":"));
-    var CalcTimeToBus = parseIntArray(Time2.split(":"));
+    const [hoursReal, minutesReal] = parseIntArray(Time1.split(":"))
+    const [hoursBus, minutesBus] = parseIntArray(Time2.split(":"));
 
-    DiffTime =
-      (CalcTimeToBus[0] - CalcRealTime[0]) * 60 +
-      CalcTimeToBus[1] -
-      CalcRealTime[1];
+    DiffTime = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
     if (DiffTime > 0) {
-      const Summ =
-        (CalcTimeToBus[0] - CalcRealTime[0]) * 60 +
-        CalcTimeToBus[1] -
-        CalcRealTime[1];
+      const Summ = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
       const Housrs = Math.floor(Summ / 60);
       const Minutes = Summ % 60;
 
       DiffTime = EndHours(Housrs) + EndMinuts(Minutes);
     } else {
-      const Summ =
-        1440 -
-        CalcRealTime[0] * 60 -
-        CalcRealTime[1] +
-        CalcTimeToBus[0] * 60 +
-        CalcTimeToBus[1];
+      const Summ = 1440 - hoursReal * 60 - minutesReal + hoursBus * 60 + minutesBus;
       const Housrs = Math.floor(Summ / 60);
       const Minutes = Summ % 60;
 
@@ -105,41 +94,32 @@ export function Clock2() {
   return <label className="ClockSize"> {date} </label>;
 }
 
-export function GetDateToBus(RealT, TToBus) {
-  function RealNumberMinuts() {
-    const RealMinArr = parseIntArray(RealT.split(":"));
-    const RealMin = RealMinArr[0] * 60 + RealMinArr[1];
+function calcMinutes(time) {
+  const [hours, minutes] = parseIntArray(time.split(":"));
+  return hours * 60 + minutes;
+}
 
-    return RealMin;
-  }
-  function ToBusNumberMinuts() {
-    const ToBusNumArr = TToBus.map(item => {
-      const OnlyNum = parseIntArray(item.split(":"));
-
-      const OnlySumNum = OnlyNum[0] * 60 + OnlyNum[1];
-      return OnlySumNum;
-    });
-    return ToBusNumArr;
-  }
-  const NearTimeToBus = ToBusNumberMinuts().indexOf(
-    ToBusNumberMinuts().find(item => item > RealNumberMinuts())
+export function GetDateToBus(realTime, timeToBus) {
+  const arrayMinutes = timeToBus.map(item => calcMinutes(item))
+  const nearTimeToBus = arrayMinutes.indexOf(
+    arrayMinutes.find(item => item > calcMinutes(realTime))
   );
 
-  if (TToBus[NearTimeToBus] === undefined)
-    return [TToBus[0], TToBus[1], TToBus[2]];
-  else if (TToBus[NearTimeToBus + 1] && TToBus[NearTimeToBus + 2])
+  if (timeToBus[nearTimeToBus] === undefined)
+    return [timeToBus[0], timeToBus[1], timeToBus[2]];
+  else if (timeToBus[nearTimeToBus + 1] && timeToBus[nearTimeToBus + 2])
     return [
-      TToBus[NearTimeToBus],
-      TToBus[NearTimeToBus + 1],
-      TToBus[NearTimeToBus + 2]
+      timeToBus[nearTimeToBus],
+      timeToBus[nearTimeToBus + 1],
+      timeToBus[nearTimeToBus + 2]
     ];
-  else if (TToBus[NearTimeToBus + 1] && TToBus[NearTimeToBus + 2] === undefined)
-    return [TToBus[NearTimeToBus], TToBus[NearTimeToBus + 1], TToBus[0]];
+  else if (timeToBus[nearTimeToBus + 1] && timeToBus[nearTimeToBus + 2] === undefined)
+    return [timeToBus[nearTimeToBus], timeToBus[nearTimeToBus + 1], timeToBus[0]];
   else if (
-    TToBus[NearTimeToBus + 1] === undefined &&
-    TToBus[NearTimeToBus + 2] === undefined
+    timeToBus[nearTimeToBus + 1] === undefined &&
+    timeToBus[nearTimeToBus + 2] === undefined
   )
-    return [TToBus[NearTimeToBus], TToBus[0], TToBus[1]];
+    return [timeToBus[nearTimeToBus], timeToBus[0], timeToBus[1]];
 }
 
 export function DivCenter({
@@ -179,23 +159,15 @@ export function ComboBox({ onChange, value, options }) {
   );
 }
 
-export function SuuuuuperTest({ JsonDataBase, from, to }) {
-  if (from === to) return <div>Выберите правильное направление</div>;
-  else {
-    const bus = JsonDataBase.filter(
-      item => item.from === from && item.to === to
-    )[0];
-    const filtertime = GetDateToBus(RealTime(), bus.times);
+export function BusTable({ busTimes, from, to }) {
+  const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
+  const filtertime = GetDateToBus(RealTime(), bus.times);
 
-    return (
-      <div>
-        1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} в{" "}
-        {filtertime[0]} <br></br>
-        2. Рейс через {TimeCalc(RealTime(), filtertime[1])} в {filtertime[1]}
-        <br></br>
-        3. Рейс через {TimeCalc(RealTime(), filtertime[2])} в {filtertime[2]}
-        <br></br>
-      </div>
-    );
-  }
+  return (
+    <div>
+      1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} в {filtertime[0]} <br/>
+      2. Рейс через {TimeCalc(RealTime(), filtertime[1])} в {filtertime[1]} <br/>     
+      3. Рейс через {TimeCalc(RealTime(), filtertime[2])} в {filtertime[2]} <br/>   
+    </div>
+  );
 }
