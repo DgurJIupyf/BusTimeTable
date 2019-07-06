@@ -32,8 +32,9 @@ function EndHours (NumHours) {
 function EndMinuts (NumMinuts) {
   const zero = [1,21,31,41,51]
   const a = [2,3,4,22,23,24,32,33,34,42,43,44,52,53,54]
-
-  if (zero.includes(NumMinuts))
+  if (NumMinuts === 0)
+    return ""
+  else if (zero.includes(NumMinuts))
     return NumMinuts + " минуту "
   else if (a.includes(NumMinuts))
     return NumMinuts + " минуты "
@@ -88,7 +89,7 @@ function clock(){
 }
 
 function TimeSecond(currentDate, interval) {
-  const [date, setDate] = React.useState(currentDate()) 
+  const [date, setDate] = React.useState(currentDate) 
 
   React.useEffect(() => {
     var timerID = setInterval(() => {
@@ -97,13 +98,13 @@ function TimeSecond(currentDate, interval) {
 	  }, interval )
   })   
   function tick() {
-    setDate(currentDate())
+    setDate(clock())
   }  
   return date;
 }
 
 export function Clock2() {
-  const date = TimeSecond(clock, 1000)
+  const date = TimeSecond(clock(), 1000)
   return (<label className="ClockSize"> {date} </label>)
 }
 
@@ -135,22 +136,20 @@ export function GetDateToBus (RealT, TToBus) {
     return [TToBus[NearTimeToBus],TToBus[0],TToBus[1]]
 }
 
-export function DivCenter ({ onFirstCityChange, onSecondCityChange, from, to }) {
+export function DivCenter ({ onFirstCityChange, onSecondCityChange, selectedFrom, selectedTo, arrayFrom, arrayTo }) {
   return (
     <div>
-      <ComboBox onChange={onFirstCityChange} value={from} />
+      <ComboBox options={arrayFrom} onChange={onFirstCityChange} value={selectedFrom} />
       <span> -> </span>
-      <ComboBox onChange={onSecondCityChange} value={to} />
+      <ComboBox options={arrayTo} onChange={onSecondCityChange} value={selectedTo} />
     </div>
     )
 }
 
-export function ComboBox({ onChange, value }) {
+export function ComboBox({ onChange, value, options }) {
   return (
     <select className='select-css' onChange={onChange} value={value}>
-      <option value='Ivanovo'> Иваново </option>
-      <option value='Palekh'> Палех </option>
-      <option value='Shuya'> Шуя </option> 
+      {options.map(item => (<option key={item} value={item}>{item}</option>))}
     </select>
   )
 }

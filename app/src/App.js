@@ -4,17 +4,18 @@ import './App.css';
 import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js';
 
 export function App() {
-  const [firstCity, setFirstCity] = useState('Ivanovo')
-  const [secondCity, setSecondCity] = useState('Palekh')
+  const [firstCity, setFirstCity] = useState('Иваново')
+  const [secondCity, setSecondCity] = useState('Палех')
   const [Json, setJson] = useState();
 
-  fetch('/db.json')
+  if (!Json) {
+
+    fetch('/db.json')
     .then(res => res.json())
     .then(data => {
       setJson(data)
     })
 
-  if (!Json) {
     return (
     <div className="App-header">
       Пожалуйста подождите, идёт загрузка!
@@ -23,13 +24,29 @@ export function App() {
     )
   }
 
+  const FromBD = []
+  Json.map(item => {
+    if (!FromBD.includes(item.from)) 
+    FromBD.push(item.from)
+  })
+
+  const ToBD = []
+  Json.map(item => {
+    if (!ToBD.includes(item.to)) 
+    ToBD.push(item.to)
+  })
+
+  console.log(FromBD, ToBD)
+
   return (
     <div className="App">
       <header className="App-header">
       <Clock2 />
       <DivCenter
-        from={firstCity}
-        to={secondCity} 
+        arrayFrom={FromBD}
+        arrayTo={ToBD}
+        selectedFrom={firstCity}
+        selectedTo={secondCity} 
         onFirstCityChange={(event) => setFirstCity(event.target.value)}
         onSecondCityChange={(event) => setSecondCity(event.target.value)}
       />
