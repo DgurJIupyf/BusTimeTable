@@ -1,97 +1,98 @@
 import React from "react";
 import "./App.css";
 
-function RealTime() {
-  var date = new Date();
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
+function getRealTime() {
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
 
-  var time = hours.toString() + ":" + minutes.toString();
+  const time = hours.toString() + ":" + minutes.toString();
   return time;
 }
 
-function parseIntArray(ArrayStr) {
-  const ArrayInt = ArrayStr.map(item => parseInt(item));
-  return ArrayInt;
+function parseIntArray(arrayStr) {
+  const arrayInt = arrayStr.map(item => parseInt(item));
+  return arrayInt;
 }
 
-function EndHours(NumHours) {
+function formatHoursEnding(hours) {
   const zero = [1, 21];
   const a = [2, 3, 4, 22, 23, 24];
 
-  if (NumHours === 0) return "";
-  else if (zero.includes(NumHours)) return NumHours + " час ";
-  else if (a.includes(NumHours)) return NumHours + " часа ";
-  else return NumHours + " часов ";
+  if (hours === 0) return "";
+  else if (zero.includes(hours)) return hours + " час ";
+  else if (a.includes(hours)) return hours + " часа ";
+  else return hours + " часов ";
 }
 
-function EndMinuts(NumMinuts) {
-  const zero = [1, 21, 31, 41, 51];
-  const a = [2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54];
-  if (NumMinuts === 0) return "";
-  else if (zero.includes(NumMinuts)) return NumMinuts + " минуту ";
-  else if (a.includes(NumMinuts)) return NumMinuts + " минуты ";
-  else return NumMinuts + " минут ";
+function formatMinutesEnding(minutes) {
+  const y = [1, 21, 31, 41, 51];
+  const s = [2, 3, 4, 22, 23, 24, 32, 33, 34, 42, 43, 44, 52, 53, 54];
+
+  if (minutes === 0) return "";
+  else if (y.includes(minutes)) return minutes + " минуту ";
+  else if (s.includes(minutes)) return minutes + " минуты ";
+  else return minutes + " минут ";
 }
 
-function TimeCalc(Time1, Time2) {
-  var DiffTime;
+function calcTimeDifference(realTime, busTime) {
+  let timeDiff;
 
-  if (Time1 === undefined || Time2 === undefined) DiffTime = "Error";
+  if (realTime === undefined || busTime === undefined) timeDiff = "Error";
   else {
-    const [hoursReal, minutesReal] = parseIntArray(Time1.split(":"))
-    const [hoursBus, minutesBus] = parseIntArray(Time2.split(":"));
+    const [hoursReal, minutesReal] = parseIntArray(realTime.split(":"))
+    const [hoursBus, minutesBus] = parseIntArray(busTime.split(":"));
 
-    DiffTime = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
-    if (DiffTime > 0) {
-      const Summ = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
-      const Housrs = Math.floor(Summ / 60);
-      const Minutes = Summ % 60;
+    timeDiff = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
 
-      DiffTime = EndHours(Housrs) + EndMinuts(Minutes);
+    if (timeDiff > 0) {
+      const sum = (hoursBus - hoursReal) * 60 + minutesBus - minutesReal;
+      const hours = Math.floor(sum / 60);
+      const minutes = sum % 60;
+
+      timeDiff = formatHoursEnding(hours) + formatMinutesEnding(minutes);
     } else {
-      const Summ = 1440 - hoursReal * 60 - minutesReal + hoursBus * 60 + minutesBus;
-      const Housrs = Math.floor(Summ / 60);
-      const Minutes = Summ % 60;
+      const sum = 1440 - hoursReal * 60 - minutesReal + hoursBus * 60 + minutesBus;
+      const hours = Math.floor(sum / 60);
+      const minutes = sum % 60;
 
-      DiffTime = EndHours(Housrs) + EndMinuts(Minutes);
+      timeDiff = formatHoursEnding(hours) + formatMinutesEnding(minutes);
     }
   }
-  return DiffTime;
+  return timeDiff;
 }
 
-function clock() {
-  var date = new Date();
-  var hours = date.getHours();
-  var minutes = date.getMinutes();
-  var seconds = date.getSeconds();
+function getClock() {
+  const date = new Date();
+  const hours = date.getHours();
+  const minutes = date.getMinutes();
+  const seconds = date.getSeconds();
 
   if (hours < 10) hours = "0" + hours;
   if (minutes < 10) minutes = "0" + minutes;
   if (seconds < 10) seconds = "0" + seconds;
 
-  var str = hours + ":" + minutes + ":" + seconds;
-  return str;
+  return `${hours}:${minutes}:${seconds}`;
 }
 
-function TimeSecond(currentDate, interval) {
-  const [date, setDate] = React.useState(currentDate());
+function useRefresher(getValue, interval) {
+  const [value, setValue] = React.useState(getValue());
 
   React.useEffect(() => {
-    var timerID = setInterval(() => {
+    const timerID = setInterval(() => {
       tick();
       clearInterval(timerID);
     }, interval);
   });
   function tick() {
-    setDate(currentDate());
+    setValue(getValue());
   }
-  return date;
+  return value;
 }
 
-export function Clock2() {
-  const date = TimeSecond(clock, 1000);
-  return <label className="ClockSize"> {date} </label>;
+export function Clock() {
+  const clock = useRefresher(getClock, 1000);
+  return <label className="ClockSize"> {clock} </label>;
 }
 
 function calcMinutes(time) {
@@ -99,7 +100,7 @@ function calcMinutes(time) {
   return hours * 60 + minutes;
 }
 
-export function GetDateToBus(realTime, timeToBus) {
+export function getNearBuses(realTime, timeToBus) {
   const arrayMinutes = timeToBus.map(item => calcMinutes(item))
   const nearTimeToBus = arrayMinutes.indexOf(
     arrayMinutes.find(item => item > calcMinutes(realTime))
@@ -122,7 +123,7 @@ export function GetDateToBus(realTime, timeToBus) {
     return [timeToBus[nearTimeToBus], timeToBus[0], timeToBus[1]];
 }
 
-export function DivCenter({
+export function DirectionSelect({
   onFirstCityChange,
   onSecondCityChange,
   selectedFrom,
@@ -132,13 +133,13 @@ export function DivCenter({
 }) {
   return (
     <div>
-      <ComboBox
+      <Select
         options={arrayFrom}
         onChange={onFirstCityChange}
         value={selectedFrom}
       />
       <span> -> </span>
-      <ComboBox
+      <Select
         options={arrayTo}
         onChange={onSecondCityChange}
         value={selectedTo}
@@ -147,7 +148,7 @@ export function DivCenter({
   );
 }
 
-export function ComboBox({ onChange, value, options }) {
+export function Select({ onChange, value, options }) {
   return (
     <select className="select-css" onChange={onChange} value={value}>
       {options.map(item => (
@@ -160,14 +161,15 @@ export function ComboBox({ onChange, value, options }) {
 }
 
 export function BusTable({ busTimes, from, to }) {
+  const realTime = getRealTime();
   const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
-  const filtertime = GetDateToBus(RealTime(), bus.times);
-
+  const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, bus.times);
+  
   return (
     <div>
-      1. Ближайший рейс через {TimeCalc(RealTime(), filtertime[0])} в {filtertime[0]} <br/>
-      2. Рейс через {TimeCalc(RealTime(), filtertime[1])} в {filtertime[1]} <br/>     
-      3. Рейс через {TimeCalc(RealTime(), filtertime[2])} в {filtertime[2]} <br/>   
+      1. Ближайший рейс через {calcTimeDifference(realTime, firstBus)} в {firstBus} <br/>
+      2. Рейс через {calcTimeDifference(realTime, secondBus)} в {secondBus} <br/>     
+      3. Рейс через {calcTimeDifference(realTime, thirdBus)} в {thirdBus} <br/>   
     </div>
   );
 }

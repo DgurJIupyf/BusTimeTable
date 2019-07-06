@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Clock2, BusTable, DivCenter } from "./TestLab.js";
+import { Clock, BusTable, DirectionSelect } from "./TestLab.js";
 
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
@@ -38,8 +38,8 @@ export function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Clock2 />
-        <DivCenter
+        <Clock />
+        <DirectionSelect
           arrayFrom={FromBD}
           arrayTo={ToBD}
           selectedFrom={firstCity}
