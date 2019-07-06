@@ -1,71 +1,62 @@
-import React, { useState } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import {Clock2, SuuuuuperTest, DivCenter} from './TestLab.js';
+import React, { useState } from "react";
+import logo from "./logo.svg";
+import "./App.css";
+import { Clock2, SuuuuuperTest, DivCenter } from "./TestLab.js";
 
 export function App() {
-  const [firstCity, setFirstCity] = useState('Иваново')
-  const [secondCity, setSecondCity] = useState('Палех')
+  const [firstCity, setFirstCity] = useState("Иваново");
+  const [secondCity, setSecondCity] = useState("Палех");
   const [Json, setJson] = useState();
 
   if (!Json) {
-
-    fetch('/db.json')
-    .then(res => res.json())
-    .then(data => {
-      setJson(data)
-    })
+    fetch("/db.json")
+      .then(res => res.json())
+      .then(data => {
+        setJson(data);
+      });
 
     return (
-    <div className="App-header">
-      Пожалуйста подождите, идёт загрузка!
-      <img src={logo} className="App-logo" alt="logo" />
-    </div>
-    )
+      <div className="App-header">
+        Пожалуйста подождите, идёт загрузка!
+        <img src={logo} className="App-logo" alt="logo" />
+      </div>
+    );
   }
 
-  const FromBD = []
+  const FromBD = [];
   Json.map(item => {
-    if (!FromBD.includes(item.from)) 
-    FromBD.push(item.from)
-  })
+    if (!FromBD.includes(item.from)) FromBD.push(item.from);
+  });
 
-  const ToBD = []
+  const ToBD = [];
   Json.map(item => {
-    if (!ToBD.includes(item.to)) 
-    ToBD.push(item.to)
-  })
+    if (!ToBD.includes(item.to)) ToBD.push(item.to);
+  });
 
-  console.log(FromBD, ToBD)
+  console.log(FromBD, ToBD);
 
   return (
     <div className="App">
       <header className="App-header">
-      <Clock2 />
-      <DivCenter
-        arrayFrom={FromBD}
-        arrayTo={ToBD}
-        selectedFrom={firstCity}
-        selectedTo={secondCity} 
-        onFirstCityChange={(event) => 
-        {
-          const newValueCity = event.target.value
-          setFirstCity(newValueCity)
-          if (newValueCity === secondCity) 
-            setSecondCity(firstCity)
-        }
-      }
-        onSecondCityChange={(event) => 
-        {
-          const newValueCity = event.target.value
-          setSecondCity(newValueCity)
-          if (newValueCity === firstCity) 
-            setFirstCity(secondCity)
-        }
-      }
-      />
-      <SuuuuuperTest JsonDataBase={Json} to={secondCity} from={firstCity} />
-      <img src={logo} className="App-logo" alt="logo" />
+        <Clock2 />
+        <DivCenter
+          arrayFrom={FromBD}
+          arrayTo={ToBD}
+          selectedFrom={firstCity}
+          selectedTo={secondCity}
+          onFirstCityChange={event => {
+            const newValueCity = event.target.value;
+            setFirstCity(newValueCity);
+            if (newValueCity === secondCity) setSecondCity(firstCity);
+          }}
+          onSecondCityChange={event => {
+            const newValueCity = event.target.value;
+            setSecondCity(newValueCity);
+            if (newValueCity === firstCity) setFirstCity(secondCity);
+          }}
+        />
+        <SuuuuuperTest JsonDataBase={Json} to={secondCity} from={firstCity} />
+        <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>
   );
