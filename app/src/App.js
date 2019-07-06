@@ -6,9 +6,9 @@ import { Clock, BusTable, DirectionSelect } from "./TestLab.js";
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
   const [secondCity, setSecondCity] = useState("Палех");
-  const [Json, setJson] = useState();
+  const [json, setJson] = useState();
 
-  if (!Json) {
+  if (!json) {
     fetch("/db.json")
       .then(res => res.json())
       .then(data => {
@@ -23,25 +23,23 @@ export function App() {
     );
   }
 
-  const FromBD = [];
-  Json.map(item => {
-    if (!FromBD.includes(item.from)) FromBD.push(item.from);
+  const departurePoints = [];
+  json.map(item => {
+    if (!departurePoints.includes(item.from)) departurePoints.push(item.from);
   });
 
-  const ToBD = [];
-  Json.map(item => {
-    if (!ToBD.includes(item.to)) ToBD.push(item.to);
+  const arrivalPoints = [];
+  json.map(item => {
+    if (!arrivalPoints.includes(item.to)) arrivalPoints.push(item.to);
   });
-
-  console.log(FromBD, ToBD);
 
   return (
     <div className="App">
       <header className="App-header">
         <Clock />
         <DirectionSelect
-          arrayFrom={FromBD}
-          arrayTo={ToBD}
+          arrayFrom={departurePoints}
+          arrayTo={arrivalPoints}
           selectedFrom={firstCity}
           selectedTo={secondCity}
           onFirstCityChange={event => {
@@ -55,7 +53,7 @@ export function App() {
             if (newValueCity === firstCity) setFirstCity(secondCity);
           }}
         />
-        <BusTable busTimes={Json} to={secondCity} from={firstCity} />
+        <BusTable busTimes={json} from={firstCity} to={secondCity}  />
         <img src={logo} className="App-logo" alt="logo" />
       </header>
     </div>

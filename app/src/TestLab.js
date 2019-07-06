@@ -64,9 +64,9 @@ function calcTimeDifference(realTime, busTime) {
 
 function getClock() {
   const date = new Date();
-  const hours = date.getHours();
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
+  let hours = date.getHours();
+  let minutes = date.getMinutes();
+  let seconds = date.getSeconds();
 
   if (hours < 10) hours = "0" + hours;
   if (minutes < 10) minutes = "0" + minutes;
@@ -161,6 +161,7 @@ export function Select({ onChange, value, options }) {
 }
 
 export function BusTable({ busTimes, from, to }) {
+  useRefresher(getClock, 1000)
   const realTime = getRealTime();
   const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
   const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, bus.times);
