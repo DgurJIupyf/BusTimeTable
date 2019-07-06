@@ -47,8 +47,22 @@ export function App() {
         arrayTo={ToBD}
         selectedFrom={firstCity}
         selectedTo={secondCity} 
-        onFirstCityChange={(event) => setFirstCity(event.target.value)}
-        onSecondCityChange={(event) => setSecondCity(event.target.value)}
+        onFirstCityChange={(event) => 
+        {
+          const newValueCity = event.target.value
+          setFirstCity(newValueCity)
+          if (newValueCity === secondCity) 
+            setSecondCity(firstCity)
+        }
+      }
+        onSecondCityChange={(event) => 
+        {
+          const newValueCity = event.target.value
+          setSecondCity(newValueCity)
+          if (newValueCity === firstCity) 
+            setFirstCity(secondCity)
+        }
+      }
       />
       <SuuuuuperTest JsonDataBase={Json} to={secondCity} from={firstCity} />
       <img src={logo} className="App-logo" alt="logo" />
