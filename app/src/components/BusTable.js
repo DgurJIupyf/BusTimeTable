@@ -1,8 +1,8 @@
 import React from "react";
-import { useRefresher, getClock, getRealTime, getNearBuses, calcTimeDifference } from "../TestLab";
+import { useRefresher, getRealTime, getNearBuses, calcTimeDifference } from "../TestLab";
 
 export function BusTable({ busTimes, from, to }) {
-    useRefresher(getClock, 1000)
+    useRefresher(() => {}, 1000)
     const realTime = getRealTime();
     const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
     const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, bus.times);
