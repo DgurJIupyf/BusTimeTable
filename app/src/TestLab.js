@@ -123,43 +123,6 @@ export function getNearBuses(realTime, timeToBus) {
     return [timeToBus[nearTimeToBus], timeToBus[0], timeToBus[1]];
 }
 
-export function DirectionSelect({
-  onFirstCityChange,
-  onSecondCityChange,
-  selectedFrom,
-  selectedTo,
-  arrayFrom,
-  arrayTo
-}) {
-  return (
-    <div>
-      <Select
-        options={arrayFrom}
-        onChange={onFirstCityChange}
-        value={selectedFrom}
-      />
-      <span> -> </span>
-      <Select
-        options={arrayTo}
-        onChange={onSecondCityChange}
-        value={selectedTo}
-      />
-    </div>
-  );
-}
-
-export function Select({ onChange, value, options }) {
-  return (
-    <select className="select-css" onChange={onChange} value={value}>
-      {options.map(item => (
-        <option key={item} value={item}>
-          {item}
-        </option>
-      ))}
-    </select>
-  );
-}
-
 export function BusTable({ busTimes, from, to }) {
   useRefresher(getClock, 1000)
   const realTime = getRealTime();
