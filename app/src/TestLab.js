@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
 
-function getRealTime() {
+export function getRealTime() {
   const date = new Date();
   const hours = date.getHours();
   const minutes = date.getMinutes();
@@ -35,7 +35,7 @@ function formatMinutesEnding(minutes) {
   else return minutes + " минут ";
 }
 
-function calcTimeDifference(realTime, busTime) {
+export function calcTimeDifference(realTime, busTime) {
   let timeDiff;
 
   if (realTime === undefined || busTime === undefined) timeDiff = "Error";
@@ -116,19 +116,4 @@ export function getNearBuses(realTime, timeToBus) {
     timeToBus[nearTimeToBus + 2] === undefined
   )
     return [timeToBus[nearTimeToBus], timeToBus[0], timeToBus[1]];
-}
-
-export function BusTable({ busTimes, from, to }) {
-  useRefresher(getClock, 1000)
-  const realTime = getRealTime();
-  const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
-  const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, bus.times);
-  
-  return (
-    <div>
-      1. Ближайший рейс через {calcTimeDifference(realTime, firstBus)} в {firstBus} <br/>
-      2. Рейс через {calcTimeDifference(realTime, secondBus)} в {secondBus} <br/>     
-      3. Рейс через {calcTimeDifference(realTime, thirdBus)} в {thirdBus} <br/>   
-    </div>
-  );
 }
