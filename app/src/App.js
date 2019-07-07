@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { DirectionSelect } from "./components/DirectionSelect.js";
 import { Clock } from "./components/Clock.js";
 import { BusTable } from "./components/BusTable.js";
+import { Page } from "./components/Page";
 
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
@@ -18,10 +18,9 @@ export function App() {
       });
 
     return (
-      <div className="App-header">
+      <Page>
         Пожалуйста подождите, идёт загрузка!
-        <img src={logo} className="App-logo" alt="logo" />
-      </div>
+      </Page>
     );
   }
 
@@ -35,31 +34,28 @@ export function App() {
     if (!arrivalPoints.includes(item.to)) arrivalPoints.push(item.to);
   });
 
-  return (
-    <div className="App">
-      <header className="App-header">
-        <Clock />
-        <DirectionSelect
-          arrayFrom={departurePoints}
-          arrayTo={arrivalPoints}
-          selectedFrom={firstCity}
-          selectedTo={secondCity}
-          onFirstCityChange={event => {
-            const newValueCity = event.target.value;
-            setFirstCity(newValueCity);
-            if (newValueCity === secondCity) setSecondCity(firstCity);
-          }}
-          onSecondCityChange={event => {
-            const newValueCity = event.target.value;
-            setSecondCity(newValueCity);
-            if (newValueCity === firstCity) setFirstCity(secondCity);
-          }}
-        />
-        <BusTable busTimes={json} from={firstCity} to={secondCity}  />
-        <img src={logo} className="App-logo" alt="logo" />
-      </header>
-    </div>
-  );
-}
+  return ( 
+    <Page>
+      <Clock />
+      <DirectionSelect
+        arrayFrom={departurePoints}
+        arrayTo={arrivalPoints}
+        selectedFrom={firstCity}
+        selectedTo={secondCity}
+        onFirstCityChange={event => {
+          const newValueCity = event.target.value;
+          setFirstCity(newValueCity);
+          if (newValueCity === secondCity) setSecondCity(firstCity);
+        }}
+        onSecondCityChange={event => {
+          const newValueCity = event.target.value;
+          setSecondCity(newValueCity);
+          if (newValueCity === firstCity) setFirstCity(secondCity);
+        }}
+      />
+      <BusTable busTimes={json} from={firstCity} to={secondCity}  />
+    </Page>
+  )
+} 
 
 export default App;
