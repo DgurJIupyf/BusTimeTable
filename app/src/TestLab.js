@@ -1,5 +1,5 @@
 import React from "react";
-import "./App.css";
+import { parseIntArray } from "./utils/parsing.js";
 
 export function getRealTime() {
   const date = new Date();
@@ -8,11 +8,6 @@ export function getRealTime() {
 
   const time = hours.toString() + ":" + minutes.toString();
   return time;
-}
-
-function parseIntArray(arrayStr) {
-  const arrayInt = arrayStr.map(item => parseInt(item));
-  return arrayInt;
 }
 
 function formatHoursEnding(hours) {
