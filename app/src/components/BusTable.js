@@ -1,5 +1,6 @@
 import React from "react";
-import { useRefresher, getRealTime, getNearBuses, calcTimeDifference } from "../TestLab";
+import { getRealTime, getNearBuses, calcTimeDifference } from "../TestLab";
+import { useRefresher } from "../hooks/useRefresher";
 
 export function BusTable({ busTimes, from, to }) {
     useRefresher(() => {}, 1000)

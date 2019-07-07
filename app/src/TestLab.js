@@ -1,4 +1,3 @@
-import React from "react";
 import { parseIntArray } from "./utils/parsing.js";
 
 export function getRealTime() {
@@ -55,21 +54,6 @@ export function calcTimeDifference(realTime, busTime) {
     }
   }
   return timeDiff;
-}
-
-export function useRefresher(getValue, interval) {
-  const [value, setValue] = React.useState(getValue());
-
-  React.useEffect(() => {
-    const timerID = setInterval(() => {
-      tick();
-      clearInterval(timerID);
-    }, interval);
-  });
-  function tick() {
-    setValue(getValue());
-  }
-  return value;
 }
 
 function calcMinutes(time) {
