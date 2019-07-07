@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import logo from "./logo.svg";
 import "./App.css";
-import { Clock, BusTable } from "./TestLab.js";
+import { BusTable } from "./TestLab.js";
 import { DirectionSelect } from "./components/DirectionSelect.js";
+import { Clock } from "./components/Clock.js";
 
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");

@@ -62,7 +62,7 @@ function calcTimeDifference(realTime, busTime) {
   return timeDiff;
 }
 
-function getClock() {
+export function getClock() {
   const date = new Date();
   let hours = date.getHours();
   let minutes = date.getMinutes();
@@ -75,7 +75,7 @@ function getClock() {
   return `${hours}:${minutes}:${seconds}`;
 }
 
-function useRefresher(getValue, interval) {
+export function useRefresher(getValue, interval) {
   const [value, setValue] = React.useState(getValue());
 
   React.useEffect(() => {
@@ -88,11 +88,6 @@ function useRefresher(getValue, interval) {
     setValue(getValue());
   }
   return value;
-}
-
-export function Clock() {
-  const clock = useRefresher(getClock, 1000);
-  return <label className="ClockSize"> {clock} </label>;
 }
 
 function calcMinutes(time) {
