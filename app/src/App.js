@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./components/Page.css";
+import "./components/DirectionSelect.css"
 import "./App.css";
 import { DirectionSelect } from "./components/DirectionSelect.js";
 import { Clock } from "./components/Clock.js";
