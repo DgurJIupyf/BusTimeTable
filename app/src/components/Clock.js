@@ -1,5 +1,6 @@
 import React from "react";
 import { useRefresher } from "../hooks/useRefresher";
+import "./Clock.css";
 
 
 function getClock() {

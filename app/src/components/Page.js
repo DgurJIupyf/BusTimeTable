@@ -1,5 +1,6 @@
 import React from "react";
 import logo from "../logo.svg";
+import "./Page.css";
 
 export function Page ({ children }) {
     return (

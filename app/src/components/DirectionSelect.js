@@ -1,4 +1,5 @@
 import React from "react";
+import "./DirectionSelect.css"
 
 export function DirectionSelect({
   onFirstCityChange,
