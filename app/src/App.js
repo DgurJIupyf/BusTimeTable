@@ -10,7 +10,7 @@ export function App() {
   const [json, setJson] = useState();
 
   if (!json) {
-    fetch("/db.json")
+    fetch("http://localhost:3000/")
       .then(res => res.json())
       .then(data => {
         setJson(data);
