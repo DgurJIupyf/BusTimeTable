@@ -10,7 +10,7 @@ export function App() {
   const [json, setJson] = useState();
 
   if (!json) {
-    fetch("http://localhost:4000/")
+    fetch(`http://localhost:4000/route?from=${firstCity}&to=${secondCity}`)
       .then(res => res.json())
       .then(data => {
         setJson(data);
