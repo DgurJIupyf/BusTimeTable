@@ -52,7 +52,7 @@ export function App() {
           if (newValueCity === firstCity) setFirstCity(secondCity);
         }}
       />
-      <BusTable busTimes={json} from={firstCity} to={secondCity}  />
+      <BusTable busTimes={json} />
     </Page>
   )
 } 

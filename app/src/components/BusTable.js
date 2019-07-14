@@ -4,11 +4,10 @@ import { useRefresher } from "../hooks/useRefresher";
 import { getNearBuses } from "../logic/getNearBuses";
 import { calcTimeDifference } from "../logic/calcTimeDifference";
 
-export function BusTable({ busTimes, from, to }) {
+export function BusTable({ busTimes }) {
     useRefresher(() => {}, 1000)
     const realTime = getRealTime();
-    const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
-    const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, bus.times);
+    const [firstBus, secondBus, thirdBus] = getNearBuses(realTime, busTimes.times);
     
     return (
       <div>

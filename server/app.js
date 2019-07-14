@@ -11,12 +11,9 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/route', function (req, res) {
-    const realTime = getRealTime();
-    const bus = dataBase.filter(item => item.from === from && item.to === to)[0];
-    const reqData = getNearBuses(realTime, bus.times);
-    console.log(reqData)
-    res.send(reqData);
+app.get('/route', function (req, res) {   
+    const fromTo = dataBase.filter(item => item.from === from && item.to === to)[0];
+    res.send(fromTo);
 });
 
 app.listen(4000, function () {
