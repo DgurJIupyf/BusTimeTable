@@ -1,6 +1,3 @@
-import { getNearBuses } from "../logic/getNearBuses";
-import { getRealTime } from "../logic/getRealTime";
-
 var express = require('express');
 var dataBase = require('./db.json');
 var app = express();
@@ -11,8 +8,24 @@ app.use(function(req, res, next) {
     next();
 });
 
-app.get('/route', function (req, res) {   
-    const fromTo = dataBase.filter(item => item.from === from && item.to === to)[0];
+app.get('/listFrom', function (req, res) {
+  const departurePoints = []
+  dataBase.map(item => {
+    if (!departurePoints.includes(item.from)) departurePoints.push(item.from);
+  });
+  res.send(departurePoints);
+});
+
+app.get('/listTo', function (req, res) {
+  const departurePoints = []
+  dataBase.map(item => {
+    if (!departurePoints.includes(item.from)) departurePoints.push(item.from);
+  });
+  res.send(departurePoints);
+});
+
+app.get('/route', function (req, res) {
+    const fromTo = dataBase.filter(item => item.from === req.query.from && item.to === req.query.to)[0];
     res.send(fromTo);
 });
 

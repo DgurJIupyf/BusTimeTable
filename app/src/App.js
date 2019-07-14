@@ -8,6 +8,8 @@ export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
   const [secondCity, setSecondCity] = useState("Палех");
   const [json, setJson] = useState();
+  const [departurePoints, setDeparturePoints] = useState();
+  const [arrivalPoints, setArrivalPoints] = useState();
 
   if (!json) {
     fetch(`http://localhost:4000/route?from=${firstCity}&to=${secondCity}`)
@@ -23,15 +25,18 @@ export function App() {
     );
   }
 
-  const departurePoints = [];
-  json.map(item => {
-    if (!departurePoints.includes(item.from)) departurePoints.push(item.from);
-  });
+  fetch(`http://localhost:4000/listFrom?from=${firstCity}&to=${secondCity}`)
+    .then(res => res.json())
+    .then(data => {
+      setDeparturePoints(data);
+    });
 
-  const arrivalPoints = [];
-  json.map(item => {
-    if (!arrivalPoints.includes(item.to)) arrivalPoints.push(item.to);
-  });
+
+  fetch(`http://localhost:4000/listTo?from=${firstCity}&to=${secondCity}`)
+    .then(res => res.json())
+    .then(data => {
+      setArrivalPoints(data);
+    });
 
   return ( 
     <Page>
