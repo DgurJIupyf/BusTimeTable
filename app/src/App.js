@@ -25,18 +25,33 @@ export function App() {
     );
   }
 
-  fetch(`http://localhost:4000/listFrom?from=${firstCity}&to=${secondCity}`)
-    .then(res => res.json())
-    .then(data => {
-      setDeparturePoints(data);
-    });
+  if (!departurePoints) {
+    fetch(`http://localhost:4000/listFrom?from=${firstCity}&to=${secondCity}`)
+      .then(res => res.json())
+      .then(data => {
+        setDeparturePoints(data);
+      });
 
+      return (
+        <Page>
+          Пожалуйста подождите, идёт загрузка!
+        </Page>
+      );
+    }
 
-  fetch(`http://localhost:4000/listTo?from=${firstCity}&to=${secondCity}`)
-    .then(res => res.json())
-    .then(data => {
-      setArrivalPoints(data);
-    });
+  if (!arrivalPoints) {
+    fetch(`http://localhost:4000/listTo?from=${firstCity}&to=${secondCity}`)
+      .then(res => res.json())
+      .then(data => {
+        setArrivalPoints(data);
+      });
+
+      return (
+        <Page>
+          Пожалуйста подождите, идёт загрузка!
+        </Page>
+      );
+    }
 
   return ( 
     <Page>

@@ -17,11 +17,11 @@ app.get('/listFrom', function (req, res) {
 });
 
 app.get('/listTo', function (req, res) {
-  const departurePoints = []
+  const arrivalPoints = []
   dataBase.map(item => {
-    if (!departurePoints.includes(item.from)) departurePoints.push(item.from);
+    if (!arrivalPoints.includes(item.from)) arrivalPoints.push(item.from);
   });
-  res.send(departurePoints);
+  res.send(arrivalPoints);
 });
 
 app.get('/route', function (req, res) {
