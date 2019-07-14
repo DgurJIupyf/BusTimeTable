@@ -1,7 +1,6 @@
 import React from "react";
 import { getRealTime } from "../logic/getRealTime";
 import { useRefresher } from "../hooks/useRefresher";
-import { getNearBuses } from "../logic/getNearBuses";
 import { calcTimeDifference } from "../logic/calcTimeDifference";
 
 export function BusTable({ busTimes, from, to }) {

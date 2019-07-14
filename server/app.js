@@ -1,3 +1,5 @@
+import { getNearBuses } from "../logic/getNearBuses";
+
 var express = require('express');
 var dataBase = require('./db.json');
 var app = express();
@@ -9,8 +11,11 @@ app.use(function(req, res, next) {
 });
 
 app.get('/route', function (req, res) {
+    const realTime = getRealTime();
+    const bus = busTimes.filter(item => item.from === from && item.to === to)[0];
+    const reqData = getNearBuses(realTime, bus.times);
     console.log(req.query)
-    res.send(dataBase);
+    res.send(reqData);
 });
 
 app.listen(4000, function () {
