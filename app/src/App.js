@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { DirectionSelect } from "./components/DirectionSelect.js";
 import { Clock } from "./components/Clock.js";
 import { BusTable } from "./components/BusTable.js";
@@ -11,47 +11,35 @@ export function App() {
   const [departurePoints, setDeparturePoints] = useState();
   const [arrivalPoints, setArrivalPoints] = useState();
 
-  if (!json) {
+  useEffect(() => {
     fetch(`http://localhost:4000/route?from=${firstCity}&to=${secondCity}`)
       .then(res => res.json())
       .then(data => {
         setJson(data);
       });
+  }, [firstCity, secondCity]);
 
+  useEffect(() => {
+    fetch('http://localhost:4000/listFrom')
+      .then(res => res.json())
+      .then(data => {
+        setDeparturePoints(data);
+      });
+
+    fetch('http://localhost:4000/listTo')
+      .then(res => res.json())
+      .then(data => {
+        setArrivalPoints(data);
+      });
+  }, []);
+
+  if (!json || !departurePoints || !arrivalPoints) {
     return (
       <Page>
         Пожалуйста подождите, идёт загрузка!
       </Page>
     );
   }
-
-  if (!departurePoints) {
-    fetch(`http://localhost:4000/listFrom?from=${firstCity}&to=${secondCity}`)
-      .then(res => res.json())
-      .then(data => {
-        setDeparturePoints(data);
-      });
-
-      return (
-        <Page>
-          Пожалуйста подождите, идёт загрузка!
-        </Page>
-      );
-    }
-
-  if (!arrivalPoints) {
-    fetch(`http://localhost:4000/listTo?from=${firstCity}&to=${secondCity}`)
-      .then(res => res.json())
-      .then(data => {
-        setArrivalPoints(data);
-      });
-
-      return (
-        <Page>
-          Пожалуйста подождите, идёт загрузка!
-        </Page>
-      );
-    }
 
   return ( 
     <Page>
