@@ -3,6 +3,7 @@ import { DirectionSelect } from "./components/DirectionSelect.js";
 import { Clock } from "./components/Clock.js";
 import { BusTable } from "./components/BusTable.js";
 import { Page } from "./components/Page";
+import { AddInBD } from "./components/AddBD";
 
 export function App() {
   const [firstCity, setFirstCity] = useState("Иваново");
@@ -10,6 +11,7 @@ export function App() {
   const [json, setJson] = useState();
   const [departurePoints, setDeparturePoints] = useState();
   const [arrivalPoints, setArrivalPoints] = useState();
+  const [addData, setAddData] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:4000/route?from=${firstCity}&to=${secondCity}`)
@@ -43,6 +45,14 @@ export function App() {
 
   return ( 
     <Page>
+      <AddInBD
+        addBD = {addData}
+        onInputCkick={event => {
+          const InputDate = event.target.value;
+          setAddData(InputDate);
+          console.log(InputDate)
+        }}
+      />
       <Clock />
       <DirectionSelect
         arrayFrom={departurePoints}
