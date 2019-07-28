@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 
-export function AddInBD ( { addBD, onInputCkick }) {
-    return (<div>
-        <input /> 
-        <button onClick={onInputCkick} />
-        <span>{addBD}</span>
-    </div>)
+export function AddInBD () {
+    const [addData, setAddData] = useState();
+
+    return (
+        <div>
+            <input onChange={(e) => setAddData(e.target.value)} /> 
+            <button
+                onClick={() => {
+                    console.log(addData);
+                }}>
+                    Add
+            </button>
+        </div>
+    )
 }
