@@ -11,7 +11,6 @@ export function App() {
   const [json, setJson] = useState();
   const [departurePoints, setDeparturePoints] = useState();
   const [arrivalPoints, setArrivalPoints] = useState();
-  const [addData, setAddData] = useState();
 
   useEffect(() => {
     fetch(`http://localhost:4000/route?from=${firstCity}&to=${secondCity}`)
@@ -45,14 +44,7 @@ export function App() {
 
   return ( 
     <Page>
-      <AddInBD
-        addBD = {addData}
-        onInputCkick={event => {
-          const InputDate = event.target.value;
-          setAddData(InputDate);
-          console.log(InputDate)
-        }}
-      />
+      <AddInBD />
       <Clock />
       <DirectionSelect
         arrayFrom={departurePoints}
